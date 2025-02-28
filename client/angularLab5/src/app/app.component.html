@@ -1,0 +1,106 @@
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
+  <mdb-navbar-brand>
+    <a class="navbar-brand" routerLink="/">
+      <img src="../assets/logo.ico" alt="logo" id="logo" height="30"> Lab5
+    </a>
+  </mdb-navbar-brand>
+
+  <links>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" (click)="basicModal.show()" mdbWavesEffect>
+          About
+        </a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item" *ngIf="isManager && token">
+        <a routerLink="/admin/users" class="nav-link">
+          <i class="fa fa-user" aria-hidden="true"></i> Users
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="isManager && token">
+        <a routerLink="/admin/products" class="nav-link">
+          <i class="fa fa-user" aria-hidden="true"></i> Products
+        </a>
+      </li>
+
+      <li class="nav-item" *ngIf="!isManager && token">
+        <a routerLink="/collection" class="nav-link">
+          <i class="fa fa-star" aria-hidden="true"></i> Collection
+        </a>
+      </li>
+
+      <li class="nav-item dropdown btn-group" dropdown>
+        <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          <i class="fa fa-user mr-1"></i>
+          <span *ngIf="!token">Accounts</span>
+          <span *ngIf="user.user">{{ user.user.name }}</span>
+        </a>
+
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+          <a *ngIf="token" class="dropdown-item waves-light" routerLink="/profile">
+            <i class="fa fa-user-circle" aria-hidden="true"></i> Profile
+          </a>
+          <a *ngIf="!token" class="dropdown-item waves-light" routerLink="/login">
+            <i class="fa fa-key" aria-hidden="true"></i> Login
+          </a>
+          <a *ngIf="token" class="dropdown-item waves-light" (click)="logout();">
+            <i class="fa fa-key" aria-hidden="true"></i> Logout
+          </a>
+          <a *ngIf="!token" class="dropdown-item waves-light" routerLink="/register">
+            <i class="fa fa-group" aria-hidden="true"></i> Register
+          </a>
+        </div>
+      </li>
+      <li class="nav-item" *ngIf="!isManager">
+        <a *ngIf="token" routerLink="/cart" routerLinkActive="active" class="nav-link">
+          <i class="fa fa-shopping-cart mr-1"></i> Cart
+          <span class="badge badge-warning ml-1">{{ cartItems }}</span>
+        </a>
+      </li>
+    </ul>
+  </links>
+</mdb-navbar>
+
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+  aria-hidden="true" style="overflow:auto;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">About Website</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item">
+            Top Products List
+          </li>
+          <li class="list-group-item">
+            Customize Collections and Other users collection List
+          </li>
+          <li class="list-group-item">
+            Comment and Like products
+          </li>
+          <li class="list-group-item">
+            Add to cart / Purchase order / Change quantity
+          </li>
+          <li class="list-group-item">
+            Store Manager Access: Users access
+          </li>
+          <li class="list-group-item">
+            Store Manager Access: Maintain Products
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="primary" class="waves-light" aria-label="Close" (click)="basicModal.hide()"
+          mdbWavesEffect>Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

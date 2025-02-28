@@ -1,0 +1,14 @@
+<ngb-alert *ngIf="alert.message" [type]="alert.messageType" [dismissible]="true">
+  <!-- <button type="button" class="close" aria-label="Close" (click)="closeAlert();">
+      <span aria-hidden="true">&times;</span>
+    </button> -->
+  <div *ngIf='alert.isArray'>
+    <div *ngFor="let data of alert.message">
+      {{ data.msg }}
+      <br />
+    </div>
+  </div>
+  <div *ngIf='!alert.isArray'>
+    {{ alert.message }}
+  </div>
+</ngb-alert>
